@@ -23,7 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
-public class MainActivity extends AppCompatActivity implements ImplementConversion.AsyncResponse {
+public class MainActivity extends AppCompatActivity implements ConvImageTask.AsyncResponse {
 
     final int CAMERA_CAPTURE = 1;
     CropImageView imageView;
@@ -89,15 +89,15 @@ public class MainActivity extends AppCompatActivity implements ImplementConversi
                         }
 
                         //execute the async task
-//                        new ConvImageTask(this).execute(cropped);
+                        new ConvImageTask(this).execute(cropped);
 
-                        bitmap = decodeFromBase64ToBitmap(convertImageToBase64(cropped));
+                        /*bitmap = decodeFromBase64ToBitmap(convertImageToBase64(cropped));
                         imageView.setImageBitmap(bitmap);
                         imageView.setShowCropOverlay(false);
 
                         OCRClass ocr = new OCRClass(MainActivity.this);
                         String s = ocr.processImage(bitmap);
-                        txtData.setText(s);
+                        txtData.setText(s);*/
 
                         break;
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements ImplementConversi
         imageView.setShowCropOverlay(false);
 
         OCRClass ocr = new OCRClass(MainActivity.this);
-        String s = ocr.processImage(bitmap);
+        String s = ocr.processImage(output);
         txtData.setText(s);
     }
 

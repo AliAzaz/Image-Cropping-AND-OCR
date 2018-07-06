@@ -12,7 +12,7 @@ import static com.ali.azaz.ocr.ImplementConversion.convertImageToBase64;
 import static com.ali.azaz.ocr.ImplementConversion.decodeFromBase64ToBitmap;
 
 public class ConvImageTask extends AsyncTask<Bitmap, Void, Boolean> {
-    public ImplementConversion.AsyncResponse delegate = null;
+    public AsyncResponse delegate = null;
     private ProgressDialog dialog;
     private Context context;
     private Bitmap bitmap;
@@ -20,6 +20,8 @@ public class ConvImageTask extends AsyncTask<Bitmap, Void, Boolean> {
     public ConvImageTask(Context mContext) {
         context = mContext;
         dialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
+
+        delegate = (AsyncResponse) mContext;
     }
 
     protected void onPreExecute() {
@@ -60,5 +62,9 @@ public class ConvImageTask extends AsyncTask<Bitmap, Void, Boolean> {
             Log.e("tag", "error", e);
             return false;
         }
+    }
+
+    public interface AsyncResponse {
+        void processFinish(Bitmap output);
     }
 }

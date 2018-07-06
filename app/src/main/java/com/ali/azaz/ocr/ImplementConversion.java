@@ -27,7 +27,4 @@ public abstract class ImplementConversion {
         return decodedByte;
     }
 
-    public interface AsyncResponse {
-        void processFinish(Bitmap output);
-    }
 }
