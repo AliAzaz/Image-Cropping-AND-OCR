@@ -3,13 +3,11 @@ package com.ali.azaz.ocr;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
@@ -91,14 +88,6 @@ public class MainActivity extends AppCompatActivity implements ConvImageTask.Asy
                         //execute the async task
                         new ConvImageTask(this).execute(cropped);
 
-                        /*bitmap = decodeFromBase64ToBitmap(convertImageToBase64(cropped));
-                        imageView.setImageBitmap(bitmap);
-                        imageView.setShowCropOverlay(false);
-
-                        OCRClass ocr = new OCRClass(MainActivity.this);
-                        String s = ocr.processImage(bitmap);
-                        txtData.setText(s);*/
-
                         break;
 
                 }
@@ -106,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements ConvImageTask.Asy
         }
     }
 
+
+    // return the bitmap result after picture taking and cropping picture
     @Override
     public void processFinish(Bitmap output) {
 
@@ -117,23 +108,4 @@ public class MainActivity extends AppCompatActivity implements ConvImageTask.Asy
         txtData.setText(s);
     }
 
-
-    /*Convert Image*/
-    private String convertImageToBase64(Bitmap bitmap) {
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-        byte[] byteFormat = stream.toByteArray();
-        // get the base 64 string
-        String imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
-        return imgString;
-    }
-
-    private Bitmap decodeFromBase64ToBitmap(String encodedImage) {
-        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-        return decodedByte;
-    }
 }
