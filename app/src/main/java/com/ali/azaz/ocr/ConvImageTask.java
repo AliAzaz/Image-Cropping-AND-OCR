@@ -25,7 +25,7 @@ public class ConvImageTask extends AsyncTask<Bitmap, Void, Boolean> {
     }
 
     protected void onPreExecute() {
-        this.dialog.setMessage("Generating List.");
+        this.dialog.setMessage("Generating Image.");
         this.dialog.show();
     }
 
